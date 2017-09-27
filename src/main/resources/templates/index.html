@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>Home</title>
     <link rel="stylesheet" th:href="@{'/webjars/bootstrap/3.3.7-1/css/bootstrap.css'}" />
 </head>
 <body>
@@ -20,7 +20,11 @@
 
         <ul>
             <li th:each="mySecret : ${mySecrets}">
-                <a th:href="@{'/secret/' + ${mySecret.id}}">LINK</a>
+                <a th:href="@{'/secret/' + ${mySecret.id}}" th:text="${mySecret.message}"></a>
+
+                <form th:action="@{'/secret/' + ${mySecret.id} + '/delete'}" method="GET">
+                    <input type="submit" value="X"/>
+                </form>
             </li>
         </ul>
 
