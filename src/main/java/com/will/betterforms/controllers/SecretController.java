@@ -16,6 +16,7 @@ public class SecretController {
     @Autowired
     private SecretRepository secretRepo;
 
+    //detail view
     @RequestMapping(value = "/secret/{id}")
     public String secretDetail(Model model,
                                @PathVariable("id") Long id) {
@@ -25,12 +26,14 @@ public class SecretController {
         return "secret";
     }
 
+    //update
     @RequestMapping(value = "/secret/{id}", method = RequestMethod.POST)
     public String secretDetailForm(@ModelAttribute Secret secret) {
         secretRepo.save(secret);
         return "redirect:/";
     }
 
+    //modal "are you sure you want to delete this secret?"
     @RequestMapping(value = "/secret/{id}/delete")
     public String secreteDeleteConfirm(Model model,
                                        @PathVariable("id") Long id) {
@@ -39,6 +42,7 @@ public class SecretController {
         return "secretDeleteConfirm";
     }
 
+    //delete secret
     @RequestMapping(value = "/secret/{id}/delete", method = RequestMethod.POST)
     public String secretDelete(@PathVariable("id") Long id) {
         secretRepo.delete(id);
