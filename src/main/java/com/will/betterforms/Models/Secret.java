@@ -9,7 +9,11 @@ public class Secret {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String owner;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private User owner;
+
     private String message;
 
     public long getId() {
@@ -20,11 +24,11 @@ public class Secret {
         this.id = id;
     }
 
-    public String getOwner() {
+    public User getOwner() {
         return owner;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(User owner) {
         this.owner = owner;
     }
 
