@@ -42,6 +42,7 @@ public class UserController {
         //overwrites plain text p/w prior to being sent to database
         user.setPassword(encryptedPassword);
         user.setRole(userRole);
+        user.setActive(true);
         userRepo.save(user);
         return "redirect:/login";
     }

@@ -23,6 +23,9 @@ public class User implements UserDetails {
     // secrets will eventually FK to us so we want a way to get them at some point
     //private List<Secret> secrets;
 
+    private boolean active;
+    //add to users table default = TRUE
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
@@ -84,5 +87,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }
