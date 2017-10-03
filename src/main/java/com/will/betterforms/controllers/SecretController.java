@@ -26,8 +26,11 @@ public class SecretController {
     //detail view
     @RequestMapping(value = "/secret/{id}")
     public String secretDetail(Model model,
-                               @PathVariable("id") Long id) {
-        Secret mySecret = secretRepo.findOne(id);
+                               @PathVariable("id") Long id,
+                               Principal principal) {
+//        Secret mySecret = secretRepo.findOne(id);
+        User user = userRepo.findByUsername(principal.getName());
+        Secret mySecret = secretRepo.findByIdAndOwner(id, user);
         model.addAttribute("secret", mySecret);
         System.out.println(id);
         return "secret";
@@ -37,9 +40,12 @@ public class SecretController {
     @RequestMapping(value = "/secret/{id}", method = RequestMethod.POST)
     public String secretDetailForm(@ModelAttribute Secret secret,
                                    Principal principal) {
+
         User me = userRepo.findByUsername(principal.getName());
-        secret.setOwner(me);
-        secretRepo.save(secret);
+        if (secret.getOwner() == me) {
+            secret.setOwner(me);
+            secretRepo.save(secret);
+        }
         return "redirect:/";
     }
 
